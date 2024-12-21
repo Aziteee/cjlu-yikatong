@@ -18,8 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.outlined.ExitToApp
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
@@ -71,7 +71,7 @@ fun HomeScreen(navController: NavController) {
                         DropdownMenuItem(
                             text = { Text("登录") },
                             onClick = { expandedMenu = false; navController.navigate(MainDestinations.LOGIN_ROUTE) },
-                            leadingIcon = { Icon(Icons.Outlined.ExitToApp, contentDescription = "登录") }
+                            leadingIcon = { Icon(Icons.AutoMirrored.Outlined.ExitToApp, contentDescription = "登录") }
                         )
                         DropdownMenuItem(
                             text = { Text("关于") },
