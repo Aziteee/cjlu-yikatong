@@ -17,6 +17,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,10 +31,17 @@ fun About(onDismissRequest: () -> Unit) {
             shape = MaterialTheme.shapes.large,
             tonalElevation = AlertDialogDefaults.TonalElevation
         ) {
+            val context = LocalContext.current
+            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+
             Column(modifier = Modifier.padding(16.dp).width(320.dp)) {
                 Text(
                     text = "量大一卡通",
                     style = MaterialTheme.typography.titleLarge,
+                )
+                Text(
+                    text = "v${packageInfo.versionName} (${packageInfo.longVersionCode})",
+                    style = MaterialTheme.typography.bodyMedium,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
