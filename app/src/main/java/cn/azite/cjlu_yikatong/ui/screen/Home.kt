@@ -34,16 +34,22 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import cn.azite.cjlu_yikatong.component.About
@@ -94,9 +100,40 @@ fun HomeScreen(navController: NavController) {
         val sharedPreferences = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
         val cookie = sharedPreferences.getString("cookie", null)
 
+        val lastRefreshTime = rememberSaveable { mutableLongStateOf(0L) }
+
+        val lifecycleOwner = LocalLifecycleOwner.current
+
+        fun refresh() {
+            if (cookie == null) {
+                return
+            }
+
+            val currentTime = System.currentTimeMillis()
+
+            // 每3分钟刷新一次
+            if (currentTime - lastRefreshTime.longValue > 3 *  60 * 1000) {
+                homeViewModel.getData(cookie)
+                lastRefreshTime.longValue = currentTime
+            }
+        }
+
+        DisposableEffect(lifecycleOwner) {
+            val observer = object: DefaultLifecycleObserver {
+                override fun onResume(owner: LifecycleOwner) {
+                    super.onResume(owner)
+                    refresh()
+                }
+            }
+            lifecycleOwner.lifecycle.addObserver(observer)
+            onDispose {
+                lifecycleOwner.lifecycle.removeObserver(observer)
+            }
+        }
+
         LaunchedEffect(Unit) {
             if (cookie != null) {
-                homeViewModel.getData(cookie)
+                refresh()
             } else {
                 Toast.makeText(context, "请先登录", Toast.LENGTH_SHORT).show()
                 navController.navigate(MainDestinations.LOGIN_ROUTE)
