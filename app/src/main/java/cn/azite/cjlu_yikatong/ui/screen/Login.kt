@@ -12,13 +12,11 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -29,6 +27,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -63,7 +62,7 @@ fun LoginScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "登录") },
+                title = {  },
                 navigationIcon = {
                     IconButton(
                         onClick = {
@@ -89,13 +88,12 @@ fun LoginScreen(navController: NavController) {
                 .padding(innerPadding)
                 .fillMaxSize()
                 .padding(16.dp)
-                .imePadding(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            Text(text = "中国计量大学", style = MaterialTheme.typography.headlineMedium)
-//            Text(text = "统一身份认证", style = MaterialTheme.typography.titleSmall)
-//            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "登录", style = MaterialTheme.typography.headlineMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "中国计量大学统一身份认证", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(24.dp))
             OutlinedTextField(
                 value = username,
                 onValueChange = { username = it },
@@ -123,7 +121,7 @@ fun LoginScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(24.dp))
             Button(
-                modifier = Modifier.width(120.dp),
+                modifier = Modifier.width(100.dp).align(Alignment.CenterHorizontally),
                 onClick = {
                     if (webView != null) {
                         loading = true

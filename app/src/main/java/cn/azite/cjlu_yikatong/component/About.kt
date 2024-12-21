@@ -39,6 +39,7 @@ fun About(onDismissRequest: () -> Unit) {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
 
             Column(modifier = Modifier.padding(16.dp).width(320.dp)) {
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "量大一卡通",
                     style = MaterialTheme.typography.titleLarge,
@@ -53,7 +54,7 @@ fun About(onDismissRequest: () -> Unit) {
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.secondary,
                 )
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 HyperlinkedText(annotatedString = buildAnnotatedString {
                     withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurface)) {
                         append("在 ")
