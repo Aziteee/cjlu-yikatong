@@ -1,5 +1,7 @@
 package cn.azite.cjlu_yikatong.component
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,7 +20,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,11 +58,8 @@ fun About(onDismissRequest: () -> Unit) {
                     color = MaterialTheme.colorScheme.secondary,
                 )
                 Spacer(modifier = Modifier.height(24.dp))
-                Text(
-                    text = "by Azite",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-                Spacer(modifier = Modifier.height(24.dp))
+                GithubHyperlinkedText()
+                Spacer(modifier = Modifier.height(16.dp))
                 TextButton(
                     onClick = onDismissRequest,
                     modifier = Modifier.align(Alignment.End)
@@ -64,4 +69,31 @@ fun About(onDismissRequest: () -> Unit) {
             }
         }
     }
+}
+
+@Composable
+fun GithubHyperlinkedText() {
+    val context = LocalContext.current
+
+    val annotatedString = buildAnnotatedString {
+        append("在 ")
+        pushStringAnnotation(tag = "URL", annotation = "https://github.com/Aziteee/cjlu-yikatong")
+        withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, textDecoration = TextDecoration.Underline)) {
+            append("Github")
+        }
+        pop()
+        append(" 上查看源代码")
+    }
+
+    ClickableText(
+        text = annotatedString,
+        onClick = { offset ->
+            annotatedString.getStringAnnotations(tag = "URL", start = offset, end = offset)
+                .firstOrNull()?.let { annotation ->
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(annotation.item))
+                    context.startActivity(intent)
+                }
+        },
+        style = MaterialTheme.typography.bodyMedium
+    )
 }
