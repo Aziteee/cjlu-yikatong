@@ -89,18 +89,23 @@ fun LoginScreen(navController: NavController) {
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
+
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "登录", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = "中国计量大学统一身份认证", style = MaterialTheme.typography.titleMedium)
+
             Spacer(modifier = Modifier.height(24.dp))
+
             OutlinedTextField(
                 value = username,
                 onValueChange = { username = it },
                 label = { Text("学号/工号") },
                 modifier = Modifier.fillMaxWidth()
             )
+
             Spacer(modifier = Modifier.height(16.dp))
+
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -119,7 +124,9 @@ fun LoginScreen(navController: NavController) {
                 },
                 modifier = Modifier.fillMaxWidth()
             )
+
             Spacer(modifier = Modifier.height(24.dp))
+
             Button(
                 modifier = Modifier.width(100.dp).align(Alignment.CenterHorizontally),
                 onClick = {

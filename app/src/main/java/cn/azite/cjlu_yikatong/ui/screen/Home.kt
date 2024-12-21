@@ -3,15 +3,19 @@ package cn.azite.cjlu_yikatong.ui.screen
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.material.icons.outlined.Info
@@ -109,10 +113,9 @@ fun HomeScreen(navController: NavController) {
             return@Scaffold
         }
 
-        Column(modifier = Modifier.padding(innerPadding)) {
+        Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
             OutlinedCard(modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
                 .clickable { }) {
                 Box(modifier = Modifier.fillMaxWidth().clickable { }) {
                     Row(
@@ -142,9 +145,9 @@ fun HomeScreen(navController: NavController) {
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(24.dp))
             Box(modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
                 .aspectRatio(1f)) {
                 OutlinedCard(
                     modifier = Modifier.fillMaxSize(),
@@ -156,6 +159,31 @@ fun HomeScreen(navController: NavController) {
                             .fillMaxSize()
                             .padding(32.dp), base64Data = homeViewModel.qrCodeString)
                     }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            OutlinedCard(onClick = { navController.navigate(MainDestinations.TRANSACTION_ROUTE) }, modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f, fill = true),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "交易记录",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
+                        contentDescription = null,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
                 }
             }
         }

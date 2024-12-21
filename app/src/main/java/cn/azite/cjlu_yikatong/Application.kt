@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import cn.azite.cjlu_yikatong.ui.MainDestinations
 import cn.azite.cjlu_yikatong.ui.screen.HomeScreen
 import cn.azite.cjlu_yikatong.ui.screen.LoginScreen
+import cn.azite.cjlu_yikatong.ui.screen.TransactionScreen
 
 @Composable
 fun Application() {
@@ -20,6 +21,9 @@ fun Application() {
         }
         composable(MainDestinations.LOGIN_ROUTE) {
             LoginScreen(navController)
+        }
+        composable(MainDestinations.TRANSACTION_ROUTE) {
+            TransactionScreen(navController)
         }
     }
 }
