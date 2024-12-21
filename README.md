@@ -4,4 +4,4 @@
 
 快速展示一卡通二维码
 
-![](https://qn.azite.cn/blog/cjlu-yikatong-preview.webp)
+![pAXFTLd.webp](https://s21.ax1x.com/2024/12/21/pAXFTLd.webp)
