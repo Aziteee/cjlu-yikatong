@@ -1,7 +1,9 @@
 package cn.azite.cjlu_yikatong.ui.screen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,6 +32,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -48,6 +51,7 @@ import cn.azite.cjlu_yikatong.component.Base64Image
 import cn.azite.cjlu_yikatong.model.HomeViewModel
 import cn.azite.cjlu_yikatong.ui.MainDestinations
 
+@SuppressLint("NewApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -145,14 +149,16 @@ fun HomeScreen(navController: NavController) {
                     }
                 }
             }
+
             Spacer(modifier = Modifier.height(24.dp))
+
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)) {
                 OutlinedCard(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    Box(modifier = Modifier.fillMaxSize().clickable {
+                    Box(modifier = Modifier.fillMaxSize().background(dynamicLightColorScheme(context).background).clickable {
                         homeViewModel.getData(cookie.toString())
                     }) {
                         Base64Image(modifier = Modifier
