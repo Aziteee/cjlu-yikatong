@@ -104,7 +104,7 @@ fun HomeScreen(navController: NavController) {
 
         val lifecycleOwner = LocalLifecycleOwner.current
 
-        fun refresh() {
+        fun refresh(force: Boolean = false) {
             if (cookie == null) {
                 return
             }
@@ -112,7 +112,7 @@ fun HomeScreen(navController: NavController) {
             val currentTime = System.currentTimeMillis()
 
             // 每3分钟刷新一次
-            if (currentTime - lastRefreshTime.longValue > 3 *  60 * 1000) {
+            if (currentTime - lastRefreshTime.longValue > 3 *  60 * 1000 || force) {
                 homeViewModel.getData(cookie)
                 lastRefreshTime.longValue = currentTime
             }
@@ -196,7 +196,7 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier.fillMaxSize(),
                 ) {
                     Box(modifier = Modifier.fillMaxSize().background(dynamicLightColorScheme(context).background).clickable {
-                        homeViewModel.getData(cookie.toString())
+                        refresh(true)
                     }) {
                         Base64Image(modifier = Modifier
                             .fillMaxSize()
