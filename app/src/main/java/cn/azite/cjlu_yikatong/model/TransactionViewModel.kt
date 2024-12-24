@@ -66,11 +66,16 @@ class TransactionViewModel : ViewModel() {
 
                         for (i in 0 until jsonArray.length()) {
                             val item = jsonArray.getJSONObject(i)
-                            val transaction = Transaction(
-                                dealer = item.getString("DEALERNAME"),
-                                time = item.getString("DEALTIME"),
-                                amount = item.getString("MONDEAL").toFloat()
-                            )
+
+                            var dealer = item.getString("DEALERNAME")
+                            val time = item.getString("DEALTIME")
+                            val amount = item.getString("MONDEAL").toFloat()
+
+                            if (amount > 0) {
+                                dealer = "充值"
+                            }
+
+                            val transaction = Transaction(dealer, time, amount)
                             transactionList.add(transaction)
                         }
 
